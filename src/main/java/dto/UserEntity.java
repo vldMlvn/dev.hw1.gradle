@@ -7,8 +7,8 @@ public class UserEntity {
     private String lastName;
 
     public UserEntity(String firstName, String lastName){
-        this.firstName=firstName;
-        this.lastName=lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Override

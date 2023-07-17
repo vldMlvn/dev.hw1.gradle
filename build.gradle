@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'go.it'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task HelloTask{
+    doFirst {
+        println("Hello <3")
+    }
+    doLast {
+        sleep(3000)
+        println("My name is Vlad")
+    }
+}
+task AboutMe(dependsOn: HelloTask) {
+    doFirst {
+        sleep(3000)
+        println("I am student GoIT")
+    }
+    doLast {
+        sleep(3000)
+        println("This my Gradle tasks test")
+    }
+}
+task Thanks(dependsOn: AboutMe){
+    doFirst {
+        sleep(3000)
+        println("Bye :)")
+    }
+    doLast {
+        sleep(3000)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'App'
+    }
+    from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
